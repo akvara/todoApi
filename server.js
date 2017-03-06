@@ -3,14 +3,15 @@
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
+  server = process.env.MONGODB_URI || 'mongodb://localhost/akvaratododb',
   mongoose = require('mongoose'),
   routes = require('./api/routes/todoListRoutes'),
   TaskList = require('./api/models/todoListModel'),
   bodyParser = require('body-parser');
   
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/akvaratododb', function (error) {
-mongoose.connect(process.env.MONGODB_URI, function (error) {
+console.log('Connecting to server:', server)
+mongoose.connect(server, function (error) {
     if (error) console.error(error);
     else console.log('mongo connected');
 });
@@ -23,7 +24,7 @@ app
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
-    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
     // 404 response
     // res.status(404).send({url: req.originalUrl + ' not found'})
