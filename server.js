@@ -11,12 +11,22 @@ mongoose.connect('mongodb://localhost/akvaratododb');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./api/routes/todoListRoutes');
-routes(app);
-app.use(function(req, res) {
-  res.status(404).send({url: req.originalUrl + ' not found'})
+
+app.use(function(req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    res.status(404).send({url: req.originalUrl + ' not found'})
+
+    next();
 });
 
+var routes = require('./api/routes/todoListRoutes');
+
+routes(app);
 
 app.listen(port);
 

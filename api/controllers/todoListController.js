@@ -19,6 +19,7 @@ exports.create_a_tasklist = function(req, res) {
   new_tasklist.save(function(err, task) {
     if (err)
       res.send(err);
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.json(task);
   });
 };
@@ -27,6 +28,7 @@ exports.read_a_tasklist = function(req, res) {
   TaskList.findById(req.params.taskId, function(err, task) {
     if (err)
       res.send(err);
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.json(task);
   });
 };
@@ -40,6 +42,7 @@ exports.update_a_tasklist = function(req, res) {
 };
 
 exports.delete_a_tasklist = function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*');
   TaskList.remove({
     _id: req.params.taskListId
   }, function(err, task) {
