@@ -16,12 +16,9 @@ var TaskListSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  status: {
-    type: [{
-      type: String,
-      enum: ['pending', 'ongoing', 'completed']
-    }],
-    default: ['pending']
+  immutable: {
+    type: Boolean,
+    default: false
   }
 });
 
