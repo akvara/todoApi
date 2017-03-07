@@ -14,9 +14,6 @@ exports.list_all_tasklists = function(req, res) {
 exports.create_a_tasklist = function(req, res) {
   var new_tasklist = new TaskList(req.body);
 
-console.log(req.body);
-console.log(new_tasklist);
-
   new_tasklist.save(function(err, task) {
     if (err)
       res.send(err);
@@ -25,7 +22,7 @@ console.log(new_tasklist);
 };
 
 exports.read_a_tasklist = function(req, res) {
-  TaskList.findById(req.params.taskId, function(err, task) {
+  TaskList.findById(req.params.taskListId, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -33,7 +30,7 @@ exports.read_a_tasklist = function(req, res) {
 };
 
 exports.update_a_tasklist = function(req, res) {
-  TaskList.findOneAndUpdate(req.params.taskId, req.body, {new: true}, function(err, task) {
+  TaskList.findOneAndUpdate({'_id': req.params.taskListId }, req.body, {new: true}, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
