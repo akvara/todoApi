@@ -48,5 +48,5 @@ exports.delete_a_tasklist = function(req, res) {
 };
 
 exports.ok = function(req, res) {
-  res.json({msg: 'OK' });
+  res.json({msg: 'OK: 170307' });
 };

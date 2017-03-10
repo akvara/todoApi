@@ -2,7 +2,7 @@
 
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 3000,
+  port = process.env.PORT || 5000,
   server = process.env.MONGODB_URI || 'mongodb://localhost/akvaratododb',
   mongoose = require('mongoose'),
   routes = require('./api/routes/todoListRoutes'),
