@@ -10,6 +10,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
   
 mongoose.Promise = global.Promise;
+console.log('===DELAYED VERSION!!=== v170210:')
 console.log('Connecting to server:', server)
 mongoose.connect(server, function (error) {
     if (error) console.error(error);
