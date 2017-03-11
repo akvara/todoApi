@@ -16,14 +16,13 @@ var TaskListSchema = new Schema({
     type: Boolean,
     default: false
   },
-  usage_count: {
+  usageCount: {
     type: Number,
     default: 0
   },
-  created_date: {
-    type: Date,
-    default: Date.now
-  },
+},
+{
+  timestamps: true
 });
 
 module.exports = mongoose.model('TaskList', TaskListSchema);
