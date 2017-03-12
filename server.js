@@ -35,6 +35,13 @@ app
 
 routes(app);
 
-app.listen(port);
+
+var myErrorHandler = function(err, req, res, next){
+   console.log(err, req, res, next);
+};
+
+app.use(myErrorHandler);
+
+app.listen(port)
 
 console.log('todo list RESTful API server started on: ' + port);
