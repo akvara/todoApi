@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    TaskList = mongoose.model('TaskList');
+    TaskList = mongoose.model('TaskList'),
+    config = require('../../config/main');
 
 exports.list_all_tasklists = function(req, res) {
   TaskList.find({}, function(err, task) {
@@ -48,5 +49,5 @@ exports.delete_a_tasklist = function(req, res) {
 };
 
 exports.ok = function(req, res) {
-  res.json({msg: 'OK: 170307' });
+  res.json({msg: 'OK: ' + config.version });
 };
