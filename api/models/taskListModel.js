@@ -4,13 +4,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TaskListSchema = new Schema({
+  userId: {
+    type: Number
+  },
   name: {
     type: String,
-    Required: 'Kindly enter the name of the task'
+    Required: 'Missing task list name'
   },
   tasks: {
-    type: String,
-    Required: 'Task list name'
+    type: String
   },
   immutable: {
     type: Boolean,

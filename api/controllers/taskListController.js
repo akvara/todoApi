@@ -1,10 +1,11 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    TaskList = mongoose.model('TaskList');
+    TaskList = mongoose.model('TaskList'),
+    config = require('../../config/main');
 
 exports.list_all_tasklists = function(req, res) {
-  TaskList.find({}, function(err, task) {
+  TaskList.find({ userId: req.params.userId }, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -30,7 +31,7 @@ exports.read_a_tasklist = function(req, res) {
 };
 
 exports.update_a_tasklist = function(req, res) {
-  TaskList.findOneAndUpdate({'_id': req.params.taskListId }, req.body, {new: true}, function(err, task) {
+  TaskList.findOneAndUpdate({'_id': req.params.taskListId, userId: req.params.userId}, req.body, {new: true}, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -39,7 +40,8 @@ exports.update_a_tasklist = function(req, res) {
 
 exports.delete_a_tasklist = function(req, res) {
   TaskList.remove({
-    _id: req.params.taskListId
+    _id: req.params.taskListId,
+    userId: req.params.userId
   }, function(err, task) {
     if (err)
       res.send(err);
@@ -48,5 +50,5 @@ exports.delete_a_tasklist = function(req, res) {
 };
 
 exports.ok = function(req, res) {
-  res.json({msg: 'OK: 170307' });
+  res.json({msg: 'OK: ' + config.version });
 };
