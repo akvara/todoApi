@@ -31,7 +31,7 @@ exports.read_a_tasklist = function(req, res) {
 };
 
 exports.update_a_tasklist = function(req, res) {
-  TaskList.findOneAndUpdate({'_id': req.params.taskListId, userId: req.params.userId}, req.body, {new: true}, function(err, task) {
+  TaskList.findOneAndUpdate({'_id': req.params.taskListId, userId: req.params.userId}, req.body, {new: false}, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
