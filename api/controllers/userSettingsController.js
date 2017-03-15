@@ -13,9 +13,21 @@ exports.read_user_settings = function(req, res) {
 };
 
 exports.save_user_settings = function(req, res) {
-  UserSettings.findOneAndUpdate({'_id': req.params.userId}, req.body, {new: true}, function(err, task) {
-    if (err)
+  UserSettings.findOneAndUpdate(
+    {
+      userId: req.params.userId
+    }, 
+    req.body, 
+    { 
+      upsert: true,
+      returnNewDocument: true
+    }, function(err, task) {
+
+    console.log(req.params.userId, req.body);
+    if (err) {
+    console.log(err);
       res.send(err);
+    }
     res.json(task);
   });
 };
