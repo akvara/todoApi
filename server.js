@@ -1,47 +1,45 @@
 'use strict';
 
-var express = require('express'),
+const express = require('express'),
   app = express(),
-  port = process.env.PORT || 5000,
-  server = process.env.MONGODB_URI || 'mongodb://localhost/akvaratododb',
+  logger = require('morgan'),
+  config = require('./config/main'),
+
   mongoose = require('mongoose'),
-  routes = require('./api/routes/todoListRoutes'),
-  TaskList = require('./api/models/todoListModel'),
-  bodyParser = require('body-parser');
-  
-mongoose.Promise = global.Promise;
-console.log('===DELAYED VERSION!!=== v170210:')
-console.log('Connecting to server:', server)
-mongoose.connect(server, function (error) {
-    if (error) console.error(error);
-    else console.log('mongo connected');
-});
+  bodyParser = require('body-parser'),
+  bcrypt = require('bcrypt-nodejs'),
+
+  taskListRoutes = require('./api/routes/taskListRoutes'),
+  taskListModel = require('./api/models/taskListModel'),
+
+  userSettingsRoutes = require('./api/routes/userSettingsRoutes'),
+  userSettingsModel = require('./api/models/userSettingsModel');
+
+  mongoose.Promise = global.Promise;
+  console.log('===DELAYED VERSION!!=== v0316-20')
+  console.log('Connecting to server:', config.server)
+  mongoose.connect(config.server,
+    function (error) {
+      if (error) console.error(error);
+      else console.log('mongo connected');
+    }
+  );
 
 app
   .use(bodyParser.json()) // support json encoded bodies
   .use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
   .use(function(req, res, next) {
-    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // 404 response
-    // res.status(404).send({url: req.originalUrl + ' not found'})
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
     next();
 });
 
-routes(app);
+taskListRoutes(app);
+userSettingsRoutes(app);
 
+app.listen(config.port);
 
-var myErrorHandler = function(err, req, res, next){
-   console.log(err, req, res, next);
-};
-
-app.use(myErrorHandler);
-
-app.listen(port)
-
-console.log('todo list RESTful API server started on: ' + port);
+console.log('todo list RESTful API server started on: ' + config.port);
