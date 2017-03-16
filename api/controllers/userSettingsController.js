@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/main');
 
 exports.read_user_settings = function(req, res) {
-  UserSettings.find({ userId: req.params.userId }, function(err, task) {
+  UserSettings.findOne({ userId: req.params.userId }, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -22,12 +22,10 @@ exports.save_user_settings = function(req, res) {
       upsert: true,
       returnNewDocument: true
     }, function(err, task) {
-
-    console.log(req.params.userId, req.body);
-    if (err) {
-    console.log(err);
-      res.send(err);
-    }
-    res.json(task);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      res.json(task);
   });
 };
