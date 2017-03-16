@@ -4,7 +4,6 @@ module.exports.id = "created_date-to-createdAt";
 
 module.exports.up = function (done) {
   var coll = this.db.collection('tasklists');
-  // collection.update({ created_at }, { $set: { UserId: 1 } }, { multi: 	true }, done);
 	coll.update({},{ $rename: {'created_date':'createdAt'} }, {multi:true}, done);  // done();
 };
 

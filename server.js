@@ -10,7 +10,10 @@ const express = require('express'),
   bcrypt = require('bcrypt-nodejs'),
 
   taskListRoutes = require('./api/routes/taskListRoutes'),
-  taskListModel = require('./api/models/taskListModel');
+  taskListModel = require('./api/models/taskListModel'),
+
+  userSettingsRoutes = require('./api/routes/userSettingsRoutes'),
+  userSettingsModel = require('./api/models/userSettingsModel');
 
 mongoose.Promise = global.Promise;
 console.log('Connecting to server:', config.server)
@@ -32,6 +35,7 @@ app
 });
 
 taskListRoutes(app);
+userSettingsRoutes(app);
 
 app.listen(config.port);
 
