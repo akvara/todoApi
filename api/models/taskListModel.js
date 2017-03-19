@@ -14,6 +14,9 @@ var TaskListSchema = new Schema({
   tasks: {
     type: String
   },
+  done: {
+    type: String
+  },
   immutable: {
     type: Boolean,
     default: false
@@ -21,7 +24,7 @@ var TaskListSchema = new Schema({
   usageCount: {
     type: Number,
     default: 0
-  },  
+  },
   lastAction: {
     type: Date
   },
