@@ -21,6 +21,9 @@ var TaskListSchema = new Schema({
   usageCount: {
     type: Number,
     default: 0
+  },  
+  lastAction: {
+    type: Date
   },
 },
 {

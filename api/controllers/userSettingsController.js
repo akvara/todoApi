@@ -16,17 +16,16 @@ exports.save_user_settings = function(req, res) {
   UserSettings.findOneAndUpdate(
     {
       userId: req.params.userId
-    },
-    req.body,
-    {
+    }, 
+    req.body, 
+    { 
       upsert: true,
       returnNewDocument: true
     }, function(err, task) {
-
-    if (err) {
-      console.log(err);
-      res.send(err);
-    }
-    res.json(task);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      res.json(task);
   });
 };
